@@ -1,6 +1,76 @@
-import UIKit
+import Foundation
 
 var greeting = "Hello, playground"
+
+
+
+/**
+ 
+ 26. Remove Duplicates from Sorted Array
+ https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+ 
+ 
+ 00123
+ 011223
+ */
+
+
+class RemoveDuplicates {
+    func removeDuplicates(_ nums: inout [Int]) -> Int {
+        guard nums.count > 1 else {
+            return nums.count
+        }
+        var first = 1
+        var second = 1
+        
+        while(second < nums.count) {
+            if nums[second - 1] == nums[second] {
+                second = second + 1
+            } else {
+                nums[first] = nums[second]
+                first = first + 1
+                second += 1
+            }
+        }
+        return first
+    }
+}
+var nums = [0,1]
+print(RemoveDuplicates().removeDuplicates(&nums))
+print(nums)
+
+
+/**
+ 
+ https://leetcode.com/problems/valid-anagram/description/
+ 
+ */
+
+class ValidAnagram {
+    func isAnagram(_ s: String, _ t: String) -> Bool {
+        guard s.count == t.count else {
+            return false
+        }
+        var hash = [Character: Int]()
+        for char in s {
+            hash[char] = (hash[char] ?? 0) + 1
+        }
+        for char in t {
+            if let count = hash[char] {
+                if count > 1 {
+                    hash[char] = hash[char]! - 1
+                } else {
+                    hash.removeValue(forKey: char)
+                }
+            }
+        }
+        return hash.isEmpty
+    }
+}
+
+let validAnagram = ValidAnagram()
+validAnagram.isAnagram("aacc", "ccac")
+
 
 /**
  
