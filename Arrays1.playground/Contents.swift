@@ -2,7 +2,97 @@ import Foundation
 
 var greeting = "Hello, playground"
 
+/***
+ 1929. Concatenation of Array
+ */
 
+
+class Concatenation {
+    func getConcatenation(_ nums: [Int]) -> [Int] {
+        var nums2 = Array(repeating: 0, count: 2*nums.count)
+        let length = nums.count
+        for index in 0..<nums.count {
+            nums2[index] = nums[index]
+            nums2[index + length] = nums[index]
+        }
+        return nums2
+    }
+}
+
+print(Concatenation().getConcatenation([0,1,3]))
+
+
+/***
+ 
+ https://leetcode.com/problems/remove-element/description/
+ 
+ 
+ 0132234 - 2
+
+ left <><><> right
+ 
+ 
+ */
+
+
+class RemoveElement2 {
+    func removeElement(_ nums: inout [Int], _ val: Int) -> Int {
+        guard nums.count > 0 else {
+            return 0
+        }
+
+       if nums.count == 1 {
+            return nums[0] == val  ? 0 : 1
+        }
+
+        var reader = 0
+        var writter = 0
+        
+        while(reader < nums.count) {
+            if nums[reader] != val {
+                nums[writter] = nums[reader]
+                writter += 1
+                reader += 1
+            } else {
+                reader += 1
+            }
+        }
+        return writter
+    }
+}
+
+var nums3 = [3,2,2,3]
+print(RemoveElement2().removeElement(&nums3, 3))
+print(nums3)
+
+class RemoveElement {
+    func removeElement(_ nums: inout [Int], _ val: Int) -> Int {
+        guard nums.count > 0 else {
+            return 0
+        }
+        
+        if nums.count == 1 {
+            return nums[0] == val  ? 0 : 1
+        }
+            
+        
+        var left = 0
+        var right = nums.count - 1
+        
+        while(left < right) {
+            if nums[left] == val {
+                nums[left] = nums[right]
+                right -= 1
+            } else {
+                left += 1
+            }
+        }
+        return left + 1
+    }
+}
+var nums2 = [3,2,2,3]
+print(RemoveElement().removeElement(&nums2, 3))
+print(nums2)
 
 /**
  
